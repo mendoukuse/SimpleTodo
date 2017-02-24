@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setAdapter(itemsAdapter);
 
         if (items.size() == 0) {
-            items.add("First item");
-            items.add("Second item");
+            items.add("First item (click to edit)");
         }
 
         setupListViewListener();
