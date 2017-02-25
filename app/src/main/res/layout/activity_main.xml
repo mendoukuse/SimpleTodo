@@ -31,7 +31,8 @@
         android:layout_alignTop="@+id/btnAddItem"
         android:layout_toLeftOf="@+id/btnAddItem"
         android:layout_toStartOf="@+id/btnAddItem"
-        android:hint="Enter a new Item" />
+        android:hint="Enter a new Item"
+        android:imeOptions="actionDone" />
 
     <Button
         android:text="Add Item"

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import static com.codepath.simpletodo.R.id.etNewItem;
 
 public class EditItemActivity extends AppCompatActivity {
     int position;
