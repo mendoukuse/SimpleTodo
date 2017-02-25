@@ -37,8 +37,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-- Ran into a bug with saving the list items after deleting a todo item
-- Don't add a "First Item" and "Second Item" to the list initially
+- Added saving the list items after deleting a todo item
+- Initialize app with no items (The demo adds a "first item" and a "second item" but I've removed that for this submission)
+- Hide keyboard after adding item 
 
 
 ## License
