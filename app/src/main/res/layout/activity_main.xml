@@ -8,7 +8,7 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:paddingTop="15dp"
-    tools:context="com.codepath.simpletodo.MainActivity">
+    tools:context="com.codepath.simpletodo.activities.MainActivity">
 
     <ListView
         android:layout_width="wrap_content"
