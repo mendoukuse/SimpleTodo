@@ -65,11 +65,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             String itemText = data.getExtras().getString("item");
+            String itemDescription = data.getExtras().getString("description");
             int position = data.getExtras().getInt("position");
 
             TodoItem updatedItem = items.remove(position);
             updatedItem.setTitle(itemText);
-            updatedItem.setDescription(itemText);
+            updatedItem.setDescription(itemDescription);
+            if (data.getExtras().getString("priority") != null) {
+                updatedItem.setPriority(Priority.valueOf(data.getExtras().getString("priority")));
+            }
 
             items.add(position, updatedItem);
             updatedItem.save();
@@ -99,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("position", position);
                 i.putExtra("item", items.get(position).getTitle());
                 i.putExtra("description", items.get(position).getDescription());
+                i.putExtra("priority", items.get(position).getPriority().name());
                 startActivityForResult(i, REQUEST_CODE);
             }
         });
