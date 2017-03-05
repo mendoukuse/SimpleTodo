@@ -3,11 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:padding="15dp"
+        android:id="@+id/itemTitleContainer">
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemTitle"/>
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemDueDate"/>
+    </LinearLayout>
+
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:id="@+id/itemPriority"
         android:padding="15dp"
-        android:id="@+id/itemTitle"/>
+        android:paddingRight="20dp"
+        android:textAlignment="viewEnd"
+        android:layout_gravity="end"/>
 </LinearLayout>
