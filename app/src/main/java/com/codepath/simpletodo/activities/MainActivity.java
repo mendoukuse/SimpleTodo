@@ -71,8 +71,12 @@ public class MainActivity extends AppCompatActivity {
             TodoItem updatedItem = items.remove(position);
             updatedItem.setTitle(itemText);
             updatedItem.setDescription(itemDescription);
+
             if (data.getExtras().getString("priority") != null) {
                 updatedItem.setPriority(Priority.valueOf(data.getExtras().getString("priority")));
+            }
+            if (data.getExtras().get("dueDate") != null) {
+                updatedItem.setDueDate((Date) data.getExtras().get("dueDate"));
             }
 
             items.add(position, updatedItem);
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("item", items.get(position).getTitle());
                 i.putExtra("description", items.get(position).getDescription());
                 i.putExtra("priority", items.get(position).getPriority().name());
+                i.putExtra("dueDate", items.get(position).getDueDate());
                 startActivityForResult(i, REQUEST_CODE);
             }
         });

@@ -8,24 +8,34 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.codepath.simpletodo.R;
 import com.codepath.simpletodo.models.Priority;
+
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class EditItemActivity extends AppCompatActivity {
     int position;
     Priority priority;
+    SimpleDateFormat sdf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+        sdf = new SimpleDateFormat("MM/dd/yyyy");
+
         // Extract item fields from intent
         String item = getIntent().getStringExtra("item");
         position = getIntent().getIntExtra("position", 0);
         String description = getIntent().getStringExtra("description");
+        Date date = (Date) getIntent().getExtras().get("dueDate");
 
         // Set item title content
         EditText editTodoItem = (EditText) findViewById(R.id.etItem);
@@ -38,6 +48,10 @@ public class EditItemActivity extends AppCompatActivity {
             editTodoDescription.setText(description);
         }
         // Set item due date
+        TextView dueDate = (TextView) findViewById(R.id.etItemDueDate);
+        if (date != null) {
+            dueDate.setText(sdf.format(date));
+        }
 
         Spinner spinner = (Spinner) findViewById(R.id.etItemPriority);
         // Create an ArrayAdapter using the string array and a default spinner layout

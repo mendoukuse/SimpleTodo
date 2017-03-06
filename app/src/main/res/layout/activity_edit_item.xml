@@ -10,20 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.codepath.simpletodo.activities.EditItemActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/etItem"
-        android:imeOptions="actionDone"
-        android:hint="edit title" />
-
     <Button
         android:text="Save"
         android:layout_width="wrap_content"
@@ -34,40 +20,100 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:layout_below="@+id/etItem"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/etItemDescription"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="enter description" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:layout_below="@+id/etItemDescription"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/etItemDueDate"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="edit due date" />
-
-    <Spinner
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etItemDueDate"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/etItemPriority"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:text="Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleLabel"
+                android:layout_weight="1"
+                android:labelFor="@+id/etItem"
+                android:textStyle="normal|bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/etItem"
+                android:imeOptions="actionDone"
+                android:hint="edit title" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:text="Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionLabel"
+                android:layout_weight="1"
+                android:labelFor="@+id/etItemDescription"
+                android:textStyle="normal|bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/etItemDescription"
+                android:hint="enter description" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:text="Priority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/priorityLabel"
+                android:layout_weight="1"
+                android:labelFor="@+id/etItemPriority"
+                android:textStyle="normal|bold" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etItemPriority" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:text="Due Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dueDateLabel"
+                android:layout_weight="1"
+                android:labelFor="@+id/datePicker3"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:id="@+id/etItemDueDate" />
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>
