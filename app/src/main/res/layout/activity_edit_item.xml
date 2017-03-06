@@ -112,7 +112,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:calendarViewShown="false"
-                android:id="@+id/etItemDueDate" />
+                android:id="@+id/etItemDueDate"
+                android:onClick="showCalendarDialogFragment"
+                android:clickable="true"/>
         </TableRow>
     </TableLayout>
 

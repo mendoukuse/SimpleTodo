@@ -1,5 +1,6 @@
 package com.codepath.simpletodo.activities;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.codepath.simpletodo.R;
+import com.codepath.simpletodo.fragments.DatePickerFragment;
 import com.codepath.simpletodo.models.Priority;
 
 import org.w3c.dom.Text;
@@ -19,10 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class EditItemActivity extends AppCompatActivity {
+public class EditItemActivity extends AppCompatActivity implements DatePickerFragment.onDateSetListener {
     int position;
     Priority priority;
     SimpleDateFormat sdf;
+    TextView dueDateText;
+    Date dueDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class EditItemActivity extends AppCompatActivity {
         String item = getIntent().getStringExtra("item");
         position = getIntent().getIntExtra("position", 0);
         String description = getIntent().getStringExtra("description");
-        Date date = (Date) getIntent().getExtras().get("dueDate");
+        dueDate = (Date) getIntent().getExtras().get("dueDate");
 
         // Set item title content
         EditText editTodoItem = (EditText) findViewById(R.id.etItem);
@@ -47,10 +51,11 @@ public class EditItemActivity extends AppCompatActivity {
         if (description != null || description.length() > 0) {
             editTodoDescription.setText(description);
         }
+
         // Set item due date
-        TextView dueDate = (TextView) findViewById(R.id.etItemDueDate);
-        if (date != null) {
-            dueDate.setText(sdf.format(date));
+        dueDateText = (TextView) findViewById(R.id.etItemDueDate);
+        if (dueDate != null) {
+            dueDateText.setText(sdf.format(dueDate));
         }
 
         Spinner spinner = (Spinner) findViewById(R.id.etItemPriority);
@@ -68,7 +73,6 @@ public class EditItemActivity extends AppCompatActivity {
             priority = Priority.valueOf(getIntent().getStringExtra("priority"));
             spinner.setSelection(adapter.getPosition(priority));
         }
-
     }
 
     private void setSpinnerOnItemSelected(Spinner spinner) {
@@ -100,7 +104,20 @@ public class EditItemActivity extends AppCompatActivity {
         data.putExtra("item", itemText);
         data.putExtra("description", itemDescription);
         data.putExtra("priority", priority.name());
+        data.putExtra("dueDate", dueDate);
         setResult(RESULT_OK, data);
         finish();
+    }
+
+    public void showCalendarDialogFragment(View v) {
+        DialogFragment newFragment = DatePickerFragment.newInstance(dueDate);
+        newFragment.setCancelable(true);
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+
+    @Override
+    public void onDateSet(int year, int month, int day) {
+        dueDate = new Date(year, month, day);
+        dueDateText.setText(sdf.format(dueDate));
     }
 }
