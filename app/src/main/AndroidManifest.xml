@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".activities.EditItemActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

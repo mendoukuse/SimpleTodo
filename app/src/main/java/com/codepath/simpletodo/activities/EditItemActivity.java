@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.codepath.simpletodo.R;
 import com.codepath.simpletodo.fragments.DatePickerFragment;
 import com.codepath.simpletodo.models.Priority;
-
-import org.w3c.dom.Text;
+import com.codepath.simpletodo.models.Status;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +23,7 @@ import java.util.Date;
 public class EditItemActivity extends AppCompatActivity implements DatePickerFragment.onDateSetListener {
     int position;
     Priority priority;
+    Status status;
     SimpleDateFormat sdf;
     TextView dueDateText;
     Date dueDate;
@@ -58,30 +58,68 @@ public class EditItemActivity extends AppCompatActivity implements DatePickerFra
             dueDateText.setText(sdf.format(dueDate));
         }
 
+        setUpPrioritySpinner();
+        setUpStatusSpinner();
+    }
+
+    private void setUpPrioritySpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.etItemPriority);
+
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<Priority> adapter = new ArrayAdapter(this,
-            android.R.layout.simple_spinner_item, Priority.values());
         // Specify the layout to use when the list of choices appears
+        ArrayAdapter<Priority> adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, Priority.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        setSpinnerOnItemSelected(spinner);
+        setPrioritySpinnerOnItemSelected(spinner);
 
         // Set item priority
-        if (getIntent().getStringExtra("priority") != null) {
-            priority = Priority.valueOf(getIntent().getStringExtra("priority"));
+        if (getIntent().getExtras().get("priority") != null) {
+            priority = (Priority) getIntent().getExtras().get("priority");
             spinner.setSelection(adapter.getPosition(priority));
         }
     }
 
-    private void setSpinnerOnItemSelected(Spinner spinner) {
+    private void setUpStatusSpinner() {
+        Spinner spinner = (Spinner) findViewById(R.id.etItemStatus);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, Status.getNames());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        setStatusSpinnerOnItemSelected(spinner);
+
+        // Set item priority
+        if (getIntent().getExtras().get("status") != null) {
+            status = (Status) getIntent().getExtras().get("status");
+            spinner.setSelection(adapter.getPosition(status.getName()));
+        }
+    }
+
+    private void setPrioritySpinnerOnItemSelected(Spinner spinner) {
         spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent,
                                                View view, int position, long id) {
                         priority = (Priority) parent.getItemAtPosition(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+        );
+    }
+
+    private void setStatusSpinnerOnItemSelected(Spinner spinner) {
+        spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent,
+                                               View view, int position, long id) {
+                        status = Status.getFromName((String) parent.getItemAtPosition(position));
                     }
 
                     @Override
@@ -103,8 +141,9 @@ public class EditItemActivity extends AppCompatActivity implements DatePickerFra
         data.putExtra("position", position);
         data.putExtra("item", itemText);
         data.putExtra("description", itemDescription);
-        data.putExtra("priority", priority.name());
+        data.putExtra("priority", priority);
         data.putExtra("dueDate", dueDate);
+        data.putExtra("status", status);
         setResult(RESULT_OK, data);
         finish();
     }

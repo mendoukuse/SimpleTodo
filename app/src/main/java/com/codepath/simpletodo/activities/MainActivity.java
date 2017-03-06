@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             item.setTitle(itemText);
             item.setDescription(itemText);
             item.setPriority(Priority.LOW);
-            item.setStatus(Status.NOT_STARTED);
+            item.setStatus(Status.TO_DO);
             item.setDueDate(new Date());
 
             itemsAdapter.add(item);
@@ -72,11 +72,14 @@ public class MainActivity extends AppCompatActivity {
             updatedItem.setTitle(itemText);
             updatedItem.setDescription(itemDescription);
 
-            if (data.getExtras().getString("priority") != null) {
-                updatedItem.setPriority(Priority.valueOf(data.getExtras().getString("priority")));
+            if (data.getExtras().get("priority") != null) {
+                updatedItem.setPriority((Priority) data.getExtras().get("priority"));
             }
             if (data.getExtras().get("dueDate") != null) {
                 updatedItem.setDueDate((Date) data.getExtras().get("dueDate"));
+            }
+            if (data.getExtras().get("status") != null) {
+                updatedItem.setStatus((Status) data.getExtras().get("status"));
             }
 
             items.add(position, updatedItem);
@@ -107,8 +110,9 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("position", position);
                 i.putExtra("item", items.get(position).getTitle());
                 i.putExtra("description", items.get(position).getDescription());
-                i.putExtra("priority", items.get(position).getPriority().name());
+                i.putExtra("priority", items.get(position).getPriority());
                 i.putExtra("dueDate", items.get(position).getDueDate());
+                i.putExtra("status", items.get(position).getStatus());
                 startActivityForResult(i, REQUEST_CODE);
             }
         });

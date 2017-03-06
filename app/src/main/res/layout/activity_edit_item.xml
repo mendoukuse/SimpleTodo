@@ -116,6 +116,26 @@
                 android:onClick="showCalendarDialogFragment"
                 android:clickable="true"/>
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:text="Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/statusLabel"
+                android:layout_weight="1"
+                android:labelFor="@+id/etItemStatus"
+                android:textStyle="normal|bold" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etItemStatus" />
+        </TableRow>
     </TableLayout>
 
 </RelativeLayout>
